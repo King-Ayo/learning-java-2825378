@@ -1,6 +1,12 @@
 #include "xparameters.h"
 #include "xgpiops.h"
 #include "xil_printf.h"
+#include "xil_types.h"
+#include "xil_io.h"
+#include "platform.h"
+#include "sleep.h"
+
+#define BUTTON_PIN 0 // Adjust this to the correct pin number for your button
 
 int main()
 {
@@ -27,14 +33,14 @@ int main()
     }
 
     // Set the direction of the pin to input (0)
-    XGpioPs_SetDirectionPin(&my_Gpio, 53, 0);
+    XGpioPs_SetDirectionPin(&my_Gpio, BUTTON_PIN, 0);
 
     // Enable the input pin
-    XGpioPs_SetOutputEnablePin(&my_Gpio, 53, 0);
+    XGpioPs_SetOutputEnablePin(&my_Gpio, BUTTON_PIN, 0);
 
     // Loop to continuously check the button state
     while (1) {
-        buttonState = XGpioPs_ReadPin(&my_Gpio, 53);
+        buttonState = XGpioPs_ReadPin(&my_Gpio, BUTTON_PIN);
 
         if (buttonState == 1) {
             xil_printf("Button pressed\r\n");
